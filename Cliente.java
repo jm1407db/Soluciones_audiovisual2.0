@@ -59,8 +59,12 @@ public class Cliente {
     }
     //To string que permite mostrar los atributos del objeto cliente
     public String toString() {
+        if (this.Combo!=null) {
+            return "Cliente [NombreCliente=" + NombreCliente + ", ApellidoCliente=" + ApellidoCliente + ", TelefonoCliente="
+                + TelefonoCliente + ", DireccionCliente=" + DireccionCliente + ", \n Combo=" + Combo.toString() + "]";
+        }
         return "Cliente [NombreCliente=" + NombreCliente + ", ApellidoCliente=" + ApellidoCliente + ", TelefonoCliente="
-                + TelefonoCliente + ", DireccionCliente=" + DireccionCliente + ", Combo=" + Combo.toString() + "]";
+                + TelefonoCliente + ", DireccionCliente=" + DireccionCliente +  "]";
     }
 
     public double getValortotalcliente() {

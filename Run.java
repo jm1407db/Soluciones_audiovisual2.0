@@ -8,8 +8,11 @@ public class Run{
         boolean verificacion1=false;
         int ConfirmacionMenuinicio=0;
         // aqui se le pregunta al usuario si es cliente o admin esto para dirigirlo al menu correspondiente
+        //este do es el principal por que es el que regresa al usuario al menu incial
         do{ 
+            //este do regresa al usuario e caso de que no introduzca una opcion valida
             do{ 
+                // el try verifica que el usuario no instroduzca datos que no concuerden con el tipo de variable en donde se guarda
                 try {
                     AdminOusuario=Byte.parseByte(JOptionPane.showInputDialog("oprime (1) si quieres ir al menu de cliente y (2) si quieres ir al menu de administrador"));
                     if (AdminOusuario==1 || AdminOusuario==2) {
@@ -21,6 +24,7 @@ public class Run{
                     JOptionPane.showMessageDialog( null, "Dato erroneo, Por favor ingresar un dato valido");
                 }
             }while(!verificacion1);
+            //switch para mover al usuario entre menus de admin y usuario
             switch (AdminOusuario) {
                 case 1:
                         String NombreCliente="";
@@ -29,6 +33,7 @@ public class Run{
                         String CedulaCliente="";
                         String direccion="";
                         Boolean verificacion2=false;
+                        //do para regresar al usuario en caso de que los datos que ingrese no esten entre las opciones o no haya nada 
                         do{ 
                             try {
                                 //Se le piden todos los datos del usuario para crear un objeto cliente
@@ -136,6 +141,7 @@ public class Run{
                                 case 2:
                                     boolean verificacion5=false;
                                     byte menuServicios=0;
+                                    //el do es para regresar al usuario almenu de servicios en caso de que introduzca una opcion no valida
                                     do{ 
                                         try {
                                             menuServicios=Byte.parseByte(JOptionPane.showInputDialog("""
@@ -164,6 +170,7 @@ public class Run{
                                     JOptionPane.showMessageDialog(null, admin.AdquirirServicio(menuServicios,CedulaCliente));
                                 break;
                                 case 3:
+                                // se usa un metodo para mostrar el total del cliente hasta el momento
                                     JOptionPane.showMessageDialog(null,admin.MostrarTotalCliente(CedulaCliente));
                                 break;
                                 default:
@@ -177,6 +184,9 @@ public class Run{
                     break;
                     case 2:
                             int RegresarMenuContraseña=0;
+                            byte MenuAdministrador=0;
+                            int SalirMenuAdmin=0;
+                            //do para regresar que el usuario vuelva a intentar ingresar la contraseña
                             do{ 
                                 String Contraseña=JOptionPane.showInputDialog(null,"""
                                         Bienvenido al menu de Administrador
@@ -185,20 +195,92 @@ public class Run{
                                         """);
                                 if (admin.VerificarAdmin(Contraseña)) {
                                     JOptionPane.showMessageDialog(null, "Admin verificado");
-                                    JOptionPane.showInputDialog(null,"""
-                                            Bienvenido al menu de Administrador
-                                            Presiona (1) Si quieres observar la lista de clientes con sus datos
-                                            Presiona (2) Si quieres cambiar el precio de un combo
-                                            Presiona (3) Si quieres cambiar el precio de un servicio
-                                            Presiona (4) para salir
-                                            """);
+                                    //do para que el usuario pueda voler al menu de admin
+                                    do{ 
+                                        try {
+                                        MenuAdministrador=Byte.parseByte(JOptionPane.showInputDialog(null,"""
+                                                Bienvenido al menu de Administrador
+                                                Presiona (1) Si quieres observar la lista de clientes con sus datos
+                                                Presiona (2) Si quieres cambiar el precio de un combo
+                                                Presiona (3) Si quieres cambiar el precio de un servicio
+                                                Presiona (4) Si quieres ver las ganancias del dia
+                                                Presiona (5) para salir
+                                                """));
+                                        } catch (Exception e) {
+                                            JOptionPane.showMessageDialog(null, "Dato erroneo, Porfavor ingresar dato valido");
+                                        }
+                                        switch (MenuAdministrador) {
+                                            case 1:
+                                                JOptionPane.showMessageDialog(null,admin.MostrarDatosClientes());
+                                                break;
+                                            case 2:
+                                                boolean verificacion6=false;
+                                                byte MenuCambiarPreciosCombos=0;
+                                                double NuevoPrecioCombo=0;
+                                                //do para que el usuario introduzca una valor entre las opciones
+                                                do{ 
+                                                    try {
+                                                         MenuCambiarPreciosCombos=Byte.parseByte(JOptionPane.showInputDialog(null, admin.MostrarPreciosCombos()+"\n \n Presione 1 si quiere cambiar el  precio del combo bronce \n Presione 2 si quiere cambiar el  precio del combo plata \n Presione 3 si quiere cambiar el  precio del combo oro"));
+                                                         NuevoPrecioCombo=Double.parseDouble(JOptionPane.showInputDialog(null,"Escribe el nuevo valor que le quieres poner al combo"));
+                                                        if (MenuCambiarPreciosCombos!=1 && MenuCambiarPreciosCombos!=2 && MenuCambiarPreciosCombos!=3 ) {
+                                                            JOptionPane.showMessageDialog(null, "Por favor ingrese un numero que este entre las opciones");
+                                                        }else{
+                                                            verificacion6=true;
+                                                        }
+                                                    } catch (Exception e) {
+                                                    JOptionPane.showMessageDialog(null, "Dato erroneo por favor ingresar dato valido");
+                                                    }
+                                                }while(!verificacion6);
+                                                JOptionPane.showMessageDialog(null, admin.CambiarPrecioCombo(MenuCambiarPreciosCombos,NuevoPrecioCombo));
+                                            break;
+                                            case 3:
+                                                boolean verificacion7=false;
+                                                byte MenuCambiarPreciosServicios=0;
+                                                double NuevoPrecioServicio=0;
+                                                //DO para que el usuario introduzca un valor valido entre las opciones
+                                                    do{ 
+                                                        try {
+                                                             MenuCambiarPreciosServicios=Byte.parseByte(JOptionPane.showInputDialog(null,admin.MostrarPreciosServicios()+"\n"+"""
+                                                                Presione (1) para cambiar el costo del servicio de sonido para conferencias
+                                                                Presione (2) para cambiar el costo del servicio de luces 
+                                                                Presione (3) para cambiar el costo del  microfono 
+                                                                Presione (4) para cambiar el costo del servicio de consola de audio 
+                                                                Presione (5) para cambiar el costo del servicio de video beam 5000 lumens + telon 
+                                                                Presione (6) para cambiar el costo del servicio de bola de espejos 
+                                                                Presione (7) para cambiar el costo del servicio de Ventury de papel+cañon Co2 (tres disparos) 
+                                                                Presione (8) para cambiar el costo del servicio de lanzallamas
+                                                                Presione (9) para cambiar el costo del servicio de DJ (el valor corresponde a una hora de servicio)
+                                                                    """));
+                                                             NuevoPrecioServicio=Double.parseDouble(JOptionPane.showInputDialog(null,"Escribe el nuevo costo del servicio"));
+                                                            if (MenuCambiarPreciosServicios!=1 && MenuCambiarPreciosServicios!=2 && MenuCambiarPreciosServicios!=3 && MenuCambiarPreciosServicios!=4
+                                                            && MenuCambiarPreciosServicios!=5 && MenuCambiarPreciosServicios!=6 && MenuCambiarPreciosServicios!=7 && MenuCambiarPreciosServicios!=8 
+                                                            && MenuCambiarPreciosServicios!=9) {
+                                                                JOptionPane.showMessageDialog(null, "Por favor ingrese un numero que este entre las opciones");
+                                                            }else{
+                                                                verificacion7=true;
+                                                            }
+                                                        } catch (Exception e) {
+                                                            JOptionPane.showMessageDialog(null,"Dato erroneo, por favor ingresar dato valido");
+                                                        }
+                                                    }while(!verificacion7);
+                                                    JOptionPane.showMessageDialog(null,admin.CambiarPrecioServicio(MenuCambiarPreciosServicios,NuevoPrecioServicio));
+                                            case 4:
+                                                    JOptionPane.showMessageDialog(null, "Las ganacias totales del dia son:$"+admin.getgananciasdia());
+                                            break;
+                                            default:
+                                                break;
+                                        }
+                                        SalirMenuAdmin=JOptionPane.showConfirmDialog(null,"Quieres regresar al menu de Admin o quieres salir del menú", "Confirmacion", JOptionPane.YES_NO_OPTION);
+                                    }while(MenuAdministrador!=5 && SalirMenuAdmin==JOptionPane.YES_OPTION);
                                 }else{
                                     RegresarMenuContraseña=JOptionPane.showConfirmDialog(null,"Contraseña incorrecta quieres volvero a intentar","confirmacion",JOptionPane.YES_NO_OPTION);
                                 }
-                            }while(RegresarMenuContraseña!=JOptionPane.NO_OPTION);
+                                //
+                            }while(RegresarMenuContraseña!=JOptionPane.NO_OPTION && SalirMenuAdmin==JOptionPane.YES_OPTION);
                     break;
             }
             ConfirmacionMenuinicio=JOptionPane.showConfirmDialog(null, "Quieres volver al menu de inicio(Si) o quieres cerrar caja y finalizar el programa(No)","confirmacion menu inicio",JOptionPane.YES_NO_OPTION);
         }while(ConfirmacionMenuinicio!=JOptionPane.NO_OPTION);
+        JOptionPane.showMessageDialog(null, "Las ganacias totales del dia fueron "+admin.getgananciasdia()+"\n Gracias por usar el programa");
     }
 }

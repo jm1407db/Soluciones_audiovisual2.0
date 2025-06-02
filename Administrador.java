@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 public class Administrador {
     private String contraseña;
+    private double gananciasdia;
     // se crea un atributo que es un array donde se van a guardar los combos
     Combo[]combos;
     // se crear un atributo que es un array donde se van a guarda los servicios adicionales
@@ -12,6 +13,7 @@ public class Administrador {
         //se le asigna un array al atributo que creamos de lista de clientes y lo inicializamos 
         this.ListadeClientes= new ArrayList<Cliente>();
         this.contraseña="12345";
+        this. gananciasdia=0;
         //se le asigna un array al atributo de combos y se iniciliza el array con un tamaño de 3
         this.combos= new Combo[3];
         this.servicios= new ServicioAdicional[9];
@@ -40,6 +42,62 @@ public class Administrador {
             return true;
         }
         return false;
+    }
+    public String MostrarDatosClientes(){
+        String DatosClientes="";
+        if(ListadeClientes.size()>0){
+            for (int i = 0; i < ListadeClientes.size(); i++) {
+                DatosClientes+="Cliente N"+(i+1)+" ="+ListadeClientes.get(i).toString()+"\n";
+            }
+        return DatosClientes;
+        }
+        return"No hay ningun cliente";
+    }
+    public String CambiarPrecioCombo(byte MenuCambiarPreciosCombos,double NuevoPrecioCombo){
+        switch (MenuCambiarPreciosCombos) {
+            case 1:
+                combos[0].setCostoCombo(NuevoPrecioCombo);
+                break;
+            case 2:
+                combos[1].setCostoCombo(NuevoPrecioCombo);
+                break;
+            case 3:
+                combos[2].setCostoCombo(NuevoPrecioCombo);
+                break;
+        }
+        return "Precio del combo cambiado";
+    }
+    public String CambiarPrecioServicio(byte MenuCambiarPreciosServicios,double NuevoPrecioServicio){
+        switch (MenuCambiarPreciosServicios) {
+            case 1:
+                servicios[0].setCostoServicio(NuevoPrecioServicio);
+                break;
+             case 2:
+                servicios[1].setCostoServicio(NuevoPrecioServicio);
+                break;
+             case 3:
+                servicios[2].setCostoServicio(NuevoPrecioServicio);
+                break;
+             case 4:
+                servicios[3].setCostoServicio(NuevoPrecioServicio);
+                break;
+             case 5:
+                servicios[4].setCostoServicio(NuevoPrecioServicio);
+                break;
+             case 6:
+                servicios[5].setCostoServicio(NuevoPrecioServicio);
+                break;
+             case 7:
+                servicios[6].setCostoServicio(NuevoPrecioServicio);
+                break;
+             case 8:
+                servicios[7].setCostoServicio(NuevoPrecioServicio);
+                break;
+             case 9:
+                servicios[8].setCostoServicio(NuevoPrecioServicio);
+                break;
+        }
+        return "Precio del servicio cambiado";
     }
     public String MostrarTotalCliente(String CedulaCliente){
         for (int i = 0; i < ListadeClientes.size(); i++) {
@@ -70,25 +128,29 @@ public class Administrador {
                     if (this.ListadeClientes.get(i).getCedulaCliente().equals(CedulaCliente)) {
                         if (contadorcombos>0) {
                             if (ListadeClientes.get(i).getCombo()==combos[0]) {
-                                ListadeClientes.get(i).setValortotalcliente(ListadeClientes.get(i).getValortotalcliente()-(ListadeClientes.get(i).getValortotalcliente()*0.5));
+                                ListadeClientes.get(i).setValortotalcliente(ListadeClientes.get(i).getValortotalcliente()-(ListadeClientes.get(i).getValortotalcliente()*0.05));
+                                this.gananciasdia+=ListadeClientes.get(i).getValortotalcliente();
                                 return"Accedio al combo bronce se le aplico un 5% \n" + "El costo total de su compra es de $"+ListadeClientes.get(i).getValortotalcliente()+"\n"+
                                 "El combo "+ListadeClientes.get(i).getCombo().getDescripcion()+"\n" +
                                 "La compra quedo a nombre de "+ListadeClientes.get(i).getNombreCliente()+" "+ListadeClientes.get(i).getApellidoCliente()+"\n"+
                                 "En la direccion: "+ListadeClientes.get(i).getDireccionCliente()+"\n Gracias por su compra, vuelva pronto";
                             }else if (ListadeClientes.get(i).getCombo()==combos[1]) {
                                 ListadeClientes.get(i).setValortotalcliente(ListadeClientes.get(i).getValortotalcliente()-(ListadeClientes.get(i).getValortotalcliente()*0.10));
+                                this.gananciasdia+=ListadeClientes.get(i).getValortotalcliente();
                                 return"Accedio al combo plata se le aplico un 10% de descuento al total \n" + "El costo total de su compra es de $"+ListadeClientes.get(i).getValortotalcliente()+"\n"+
                                 "El combo "+ListadeClientes.get(i).getCombo().getDescripcion()+"\n" +
                                 "La compra quedo a nombre de "+ListadeClientes.get(i).getNombreCliente()+" "+ListadeClientes.get(i).getApellidoCliente()+"\n"+
                                 "En la direccion: "+ListadeClientes.get(i).getDireccionCliente()+"\n Gracias por su compra, vuelva pronto";
                             }else if (ListadeClientes.get(i).getCombo()==combos[2]) {
                                 ListadeClientes.get(i).setValortotalcliente(ListadeClientes.get(i).getValortotalcliente()-(ListadeClientes.get(i).getValortotalcliente()*0.15));
+                                this.gananciasdia+=ListadeClientes.get(i).getValortotalcliente();
                                 return"Accedio al combo oro se le aplico un 15% de descuento al total \n" + "El costo total de su compra es de $"+ListadeClientes.get(i).getValortotalcliente()+"\n"+
                                 "El combo "+ListadeClientes.get(i).getCombo().getDescripcion()+"\n" +
                                 "La compra quedo a nombre de "+ListadeClientes.get(i).getNombreCliente()+" "+ListadeClientes.get(i).getApellidoCliente()+"\n"+
                                 "En la direccion: "+ListadeClientes.get(i).getDireccionCliente()+"\n Gracias por su compra, vuelva pronto";
                             }
                        }else{
+                            this.gananciasdia+=ListadeClientes.get(i).getValortotalcliente();
                             return"No ha accedido a ningun combo, no se aplicaran descuentos \n" + "El costo total de su compra es de $"+ListadeClientes.get(i).getValortotalcliente()+"\n"+
                                 "La compra quedo a nombre de "+ListadeClientes.get(i).getNombreCliente()+" "+ListadeClientes.get(i).getApellidoCliente()+"\n"+
                                 "En la direccion: "+ListadeClientes.get(i).getDireccionCliente()+"\n Gracias por su compra vuelva pronto";
@@ -216,5 +278,11 @@ public class Administrador {
     }
     public String getcontraseña() {
         return contraseña;
+    }
+    public void setgananciasdia(double gananciasdia) {
+        this.gananciasdia = gananciasdia;
+    }
+    public double getgananciasdia() {
+        return gananciasdia;
     }
 }
