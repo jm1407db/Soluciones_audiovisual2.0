@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 public class Administrador {
+    //Atributo de contraseña para el ingreso al menu de administrador
     private String contraseña;
+    //Atributo para mostrar la sumatoria de las ventas del dia
     private double gananciasdia;
     // se crea un atributo que es un array donde se van a guardar los combos
     Combo[]combos;
@@ -37,12 +39,14 @@ public class Administrador {
         this.servicios[7]= new ServicioAdicional("servicio de lanzallamas", 60000, "servicio de lanzallamas");
         this.servicios[8]= new ServicioAdicional("servicio de DJ", 200000, "el servicio de DJ (el valor corresponde a una hora de servicio)");
     }
+    //metodo para verificar la contraseña de un administrador
     public boolean VerificarAdmin(String contraseña){
         if (contraseña.equalsIgnoreCase(this.contraseña)) {
             return true;
         }
         return false;
     }
+    //metodo que muestra todos los datos de los clientes
     public String MostrarDatosClientes(){
         String DatosClientes="";
         if(ListadeClientes.size()>0){
@@ -53,6 +57,7 @@ public class Administrador {
         }
         return"No hay ningun cliente";
     }
+    //metodo para cambiar el precio de un combo
     public String CambiarPrecioCombo(byte MenuCambiarPreciosCombos,double NuevoPrecioCombo){
         switch (MenuCambiarPreciosCombos) {
             case 1:
@@ -67,6 +72,7 @@ public class Administrador {
         }
         return "Precio del combo cambiado";
     }
+    //metodo para cambiar el precio de un servicio
     public String CambiarPrecioServicio(byte MenuCambiarPreciosServicios,double NuevoPrecioServicio){
         switch (MenuCambiarPreciosServicios) {
             case 1:
@@ -99,6 +105,7 @@ public class Administrador {
         }
         return "Precio del servicio cambiado";
     }
+    //metodo que muestra la cuenta total hasta el momento
     public String MostrarTotalCliente(String CedulaCliente){
         for (int i = 0; i < ListadeClientes.size(); i++) {
                     if (this.ListadeClientes.get(i).getCedulaCliente().equals(CedulaCliente)) {
@@ -123,6 +130,7 @@ public class Administrador {
         ListadeClientes.add(new Cliente(nombreCliente, ApellidoCliente, TelefonoCliente, DireccionCliente,cedulaCliente));
         return"Miembro creado";
     }
+    //metodo que hace el proceso de descuento y muestra el costo total
     public String Mostrarfactura(String CedulaCliente, byte contadorcombos){
         for (int i = 0; i < ListadeClientes.size(); i++) {
                     if (this.ListadeClientes.get(i).getCedulaCliente().equals(CedulaCliente)) {

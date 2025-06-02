@@ -275,10 +275,10 @@ public class Run{
                                 }else{
                                     RegresarMenuContraseña=JOptionPane.showConfirmDialog(null,"Contraseña incorrecta quieres volvero a intentar","confirmacion",JOptionPane.YES_NO_OPTION);
                                 }
-                                //
                             }while(RegresarMenuContraseña!=JOptionPane.NO_OPTION && SalirMenuAdmin==JOptionPane.YES_OPTION);
                     break;
             }
+            // pregunta que se le hace el usuario para usar el do con el fin de finalizar el programa
             ConfirmacionMenuinicio=JOptionPane.showConfirmDialog(null, "Quieres volver al menu de inicio(Si) o quieres cerrar caja y finalizar el programa(No)","confirmacion menu inicio",JOptionPane.YES_NO_OPTION);
         }while(ConfirmacionMenuinicio!=JOptionPane.NO_OPTION);
         JOptionPane.showMessageDialog(null, "Las ganacias totales del dia fueron "+admin.getgananciasdia()+"\n Gracias por usar el programa");
