@@ -7,8 +7,8 @@ public class Cliente {
     private String cedulaCliente;
     private double Valortotalcliente;
     private Combo Combo;
+    //en Java, los nombres de atributos normalmente empiezan en minúscula, como nombreCliente, valorTotalCliente, combo, etc. Eso es lo que tu profe seguro quería corregir.
     //Constructor
-
     public Cliente(String nombreCliente, String apellidoCliente, String telefonoCliente, String direccionCliente, String cedulaCliente) {
         NombreCliente = nombreCliente;
         ApellidoCliente = apellidoCliente;
@@ -18,6 +18,7 @@ public class Cliente {
         // el combo se inicializa en null ya que aun no sabemos si el usuario va a comprar un combo, al estar en null es como si estuviera vacio o no existiera
         Combo = null;
         Valortotalcliente= 0;
+        //Mejora: usar this. en todos los atributos por claridad.
     }
     //getters y setters
     
